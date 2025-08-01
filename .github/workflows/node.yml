@@ -10,14 +10,15 @@ jobs:
         with:
           node-version: '14'
       - run: npm install
-      - run: npm test
-      - run: npm run build
-      - name: Deploy to Server
+      - run: node index.js
+      - name: Run Tests
+        run: npm test
+      - name: Deploy to Local Demo
         run: |
           echo "Deploying to local demo environment..."
           mkdir -p ~/demo-deploy
-          cp -r ./build/* ~/demo-deploy/
+          cp -r ./* ~/demo-deploy/
           cd ~/demo-deploy
           npm install --production || true
-          npm start &
+          nohup npm start &
           echo "Application deployed locally at ~/demo-deploy"
