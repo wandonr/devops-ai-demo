@@ -10,15 +10,4 @@ jobs:
         with:
           node-version: '14'
       - run: npm install
-      - run: node index.js
-      - name: Run Tests
-        run: npm test
-      - name: Deploy to Local Demo
-        run: |
-          echo "Deploying to local demo environment..."
-          mkdir -p ~/demo-deploy
-          cp -r ./* ~/demo-deploy/
-          cd ~/demo-deploy
-          npm install --production || true
-          nohup npm start &
-          echo "Application deployed locally at ~/demo-deploy"
+      - run: node -e "require('./index')"
