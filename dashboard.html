@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - House Inspector</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; }
+    .container { max-width: 600px; margin: 80px auto; background: #fff; padding: 32px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
+    h2 { text-align: center; }
+    .logout { float: right; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="logout">Logout</button>
+    <h2>Welcome, <span id="username"></span>!</h2>
+    <p>This is your dashboard. You can start inspecting properties here.</p>
+    <!-- Add inspection features here -->
+  </div>
+  <script>
+    // Check for token
+    const token = localStorage.getItem('token');
+    if (!token) {
+      window.location.href = '/login.html';
+    } else {
+      // Decode JWT to get user name (simple base64 decode, not secure for production)
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      document.getElementById('username').textContent = payload.name;
+    }
+
+    // Logout functionality
+    document.querySelector('.logout').onclick = function() {
+      localStorage.removeItem('token');
+      window.location.href = '/login.html';
+    };
+  </script>
+</body>
+</html>
